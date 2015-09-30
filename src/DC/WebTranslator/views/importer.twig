@@ -1,0 +1,23 @@
+{% extends "@webtranslator/shell.twig" %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block content %}
+
+    <h1 class="page-header">Import tool</h1>
+
+    <ul class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> <a href="{{ path('webtranslator.index') }}">Dashboard</a></li>
+        <li class="active">
+            <i class="fa fa-download"></i> Import new/missing translation strings
+        </li>
+    </ul>
+
+    <div class="alert alert-warning"><i class="fa fa-warning"></i> This functionality is not yet implemented</div>
+
+    <form method="post" action="{{ path('webtranslator.importer') }}">
+        {{ form_row(form.parsers) }}
+        <input type="submit" class="btn btn-primary" name="submit" value="Import" />
+    </form>
+
+{% endblock %}
