@@ -24,12 +24,12 @@ class WebTranslatorController {
         $locale = $app['locale'];
         $locales = array_unique(array_merge(array($translator->getLocale()), $translator->getFallbackLocales()));
 
-        $messages = $translator->getMessages($locale)['messages'];
+        $messages = $translator->getCatalogue($locale)->all()['messages'];
 
         $translationCount = sizeof($messages);
         $untranslated = 0;
         foreach($locales AS $l) {
-            $lm = $translator->getMessages($l)['messages'];
+            $lm = $translator->getCatalogue($l)->all()['messages'];
             foreach($messages AS $mk => $mv) {
                 if(!array_key_exists($mk, $lm)) {
                     $untranslated++;
@@ -61,8 +61,10 @@ class WebTranslatorController {
         }
 
 
-        $messages = $app['translator']->getMessages($app['locale'])['messages'];
-        $translations = $app['translator']->getMessages($locale)['messages'];
+        $messages = $app['translator']->getCatalogue($app['locale'])->all()['messages'];
+        $translations = $app['translator']->getCatalogue($locale)->all()['messages'];
+//        var_dump($messages);
+//        var_dump($translations);die;
 
         if($request->getMethod() == 'POST') {
 
