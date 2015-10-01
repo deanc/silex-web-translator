@@ -1,5 +1,5 @@
 {
-  "name": "deanc/SilexWebTranslator",
+  "name": "deanc/silex-web-translator",
   "type": "library",
   "description": "A boilerplate to get started with silex",
   "keywords": [
@@ -8,7 +8,7 @@
     "translation",
     "php"
   ],
-  "homepage": "https://github.com/deanc/SilexWebTranslator",
+  "homepage": "https://github.com/deanc/silex-web-translator",
   "license": "MIT",
   "authors": [
     {
