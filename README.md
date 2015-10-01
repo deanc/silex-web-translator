@@ -5,7 +5,13 @@
 This Silex Provider allows you to easily manage the translation files for your app via a web-based interface. Current features include:
 
 * Dashboard for a quick overview of the current status of translations for your app including total translations, total locales and total untranslated strings.
+
+![dashboard](https://github.com/deanc/silex-web-translator/raw/master/screenshots/dashboard.png)
+
 * A simple editor for translation strings, allowing you to quickly see which translation strings are missing for each locale
+
+![translation screen 1](https://github.com/deanc/silex-web-translator/raw/master/screenshots/translations_primary.png)
+![translation screen 2](https://github.com/deanc/silex-web-translator/raw/master/screenshots/translations_secondary.png)
 
 ## Requirements
 
