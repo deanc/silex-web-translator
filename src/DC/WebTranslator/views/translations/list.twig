@@ -34,7 +34,7 @@
     </div>
 
 
-    <form method="post" action="{{ path('webtranslator.translations.list') }}">
+    <form method="post" action="{{ path('webtranslator.translations.list', {targetLocale: locale}) }}">
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
@@ -44,17 +44,19 @@
                 </tr>
             </thead>
             <tbody>
-                {% for messageKey, message in messages %}
-                    <tr class="{% if translations[messageKey] is not defined %}danger{% endif %}">
-                        <td><u><strong>{{ messageKey }}</strong></u></td>
-                        <td>
-                            {% if app.locale != locale %}
-                            <textarea class="translationInput" disabled="disabled">{{ message }}</textarea>
-                            {% endif %}
-                            <textarea name="translations[{{ locale }}][{{ messageKey }}]" class="translationInput">{% if translations[messageKey] is defined %}{{ translations[messageKey] }}{% endif %}</textarea>
-                        </td>
-                        <td><button class="btn btn-default btn-sm" type="submit">Save translations</button></td>
-                    </tr>
+                {% for domain, translations in primaryCatalogue %}
+                    {% for translationKey, translationValue in translations %}
+                        <tr class="{% if translatedCatalogue[domain][translationKey] is not defined %}danger{% endif %}">
+                            <td><u><strong>{{ translationKey }}</strong></u><br /><br /><em>({{ domain }})</em></td>
+                            <td>
+                                {% if app.locale != locale %}
+                                <textarea class="translationInput" disabled="disabled">{{ translationValue }}</textarea>
+                                {% endif %}
+                                <textarea name="translations[{{ locale }}][{{ domain }}][{{ translationKey }}]" class="translationInput">{% if translatedCatalogue[domain][translationKey] is defined %}{{ translatedCatalogue[domain][translationKey] }}{% endif %}</textarea>
+                            </td>
+                            <td><button class="btn btn-default btn-sm" type="submit">Save translations</button></td>
+                        </tr>
+                    {% endfor %}
                 {% endfor %}
             </tbody>
         </table>

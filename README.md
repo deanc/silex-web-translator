@@ -1,6 +1,18 @@
+# Silex Web Translator
+
+## Introduction
+
+This Silex Provider allows you to easily manage the translation files for your app via a web-based interface. Current features include:
+
+* Dashboard for a quick overview of the current status of translations for your app including total translations, total locales and total untranslated strings.
+* A simple editor for translation strings, allowing you to quickly see which translation strings are missing for each locale
+
 ## Requirements
 
-* Make sure your YML files are of the format `<locale>.yml` and just one YML file per locale. e.g. `en_GB.yml`
+* PHP 5.4+
+* Using YAML files for your translations. They *must* be formatted as `<domain>.<locale>.yml`. If you aren't using the domains featured of the Symfony `Translation` component then make sure you name your translation files `messages.<locale>.yml`.
+* For all usage of locales in your app use the ISO 639-1 language code, an underscore (_), then the ISO 3166-1 alpha-2 country code (e.g. fr_FR for French/France).
+* Make sure you configure *all* locales as fallbacks when setting up the `TranslationProvider`.
 
 ## Installation
 
@@ -15,9 +27,10 @@
         
             $translator->addLoader('yaml', new Symfony\Component\Translation\Loader\YamlFileLoader());
         
-            $translator->addResource('yaml', __DIR__.'/../translations/en_GB.yml', 'en_GB');
-            $translator->addResource('yaml', __DIR__.'/../translations/fr_FR.yml', 'fr_FR');
-            $translator->addResource('yaml', __DIR__.'/../translations/fi_FI.yml', 'fi_FI');
+            $translator->addResource('yaml', __DIR__.'/../translations/messages.en_GB.yml', 'en_GB');
+            $translator->addResource('yaml', __DIR__.'/../translations/messages.fr_FR.yml', 'fr_FR');
+            $translator->addResource('yaml', __DIR__.'/../translations/messages.fi_FI.yml', 'fi_FI');
+            $translator->addResource('yaml', __DIR__.'/../translations/rules.en_GB.yml', 'en_GB', 'rules');
         
             return $translator;
         }));
@@ -39,19 +52,17 @@
         
 * Mount the controller provider
 
-        $app->mount('/translations', new DC\WebTranslator\Controller\WebTranslatorControllerProvider());
+        $app->mount('/webtranslator', new DC\WebTranslator\Controller\WebTranslatorControllerProvider());
 
 ## FAQ
 
 How to protect the interface with user authentication?
 
-- You can protect the route you mount the controller on, as you would any other route, using the Symfony 
-security component.
+* You can protect the route you mount the controller on, as you would any other route, using the Symfony security component.
 
 ## Known issues
 
 * If you import nested YML files with pretty new line (pipe) syntax, it will replace new lines with \r\n
-* Does not support multiple translation files per locale
 
 ## Thanks/Credits
 
