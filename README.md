@@ -24,41 +24,49 @@ This Silex Provider allows you to easily manage the translation files for your a
 
 * Configuration the default Silex TranslationServiceProvider in a similar way:
 
-        $app['locale'] = 'en_GB';
-        $app->register(new Silex\Provider\TranslationServiceProvider(), array(
-            'locale_fallbacks' => array('en_GB', 'fr_FR', 'fi_FI'),
-        ));
-        
-        $app['translator'] = $app->share($app->extend('translator', function($translator, $app) {
-        
-            $translator->addLoader('yaml', new Symfony\Component\Translation\Loader\YamlFileLoader());
-        
-            $translator->addResource('yaml', __DIR__.'/../translations/messages.en_GB.yml', 'en_GB');
-            $translator->addResource('yaml', __DIR__.'/../translations/messages.fr_FR.yml', 'fr_FR');
-            $translator->addResource('yaml', __DIR__.'/../translations/messages.fi_FI.yml', 'fi_FI');
-            $translator->addResource('yaml', __DIR__.'/../translations/rules.en_GB.yml', 'en_GB', 'rules');
-        
-            return $translator;
-        }));
+```php
+$app['locale'] = 'en_GB';
+$app->register(new Silex\Provider\TranslationServiceProvider(), array(
+    'locale_fallbacks' => array('en_GB', 'fr_FR', 'fi_FI'),
+));
+
+$app['translator'] = $app->share($app->extend('translator', function($translator, $app) {
+
+    $translator->addLoader('yaml', new Symfony\Component\Translation\Loader\YamlFileLoader());
+
+    $translator->addResource('yaml', __DIR__.'/../translations/messages.en_GB.yml', 'en_GB');
+    $translator->addResource('yaml', __DIR__.'/../translations/messages.fr_FR.yml', 'fr_FR');
+    $translator->addResource('yaml', __DIR__.'/../translations/messages.fi_FI.yml', 'fi_FI');
+    $translator->addResource('yaml', __DIR__.'/../translations/rules.en_GB.yml', 'en_GB', 'rules');
+
+    return $translator;
+}));
+```
 
 * Make sure you are using and have registered the following service providers:
 
-        $app->register(new Silex\Provider\ServiceControllerServiceProvider());
-        $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
-        $app->register(new Silex\Provider\FormServiceProvider());
-        $app->register(new Silex\Provider\ValidatorServiceProvider());
-        $app->register(new Silex\Provider\TwigServiceProvider());
+```php
+$app->register(new Silex\Provider\ServiceControllerServiceProvider());
+$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
+$app->register(new Silex\Provider\FormServiceProvider());
+$app->register(new Silex\Provider\ValidatorServiceProvider());
+$app->register(new Silex\Provider\TwigServiceProvider());
+```
         
 * Register the service provider and configure the options
 
-        $app['webtranslator.options'] = array(
-            'translator_file_path' => __DIR__ . '/../translations/'
-        );
-        $app->register(new DC\WebTranslator\Provider\WebTranslatorServiceProvider());
+```php
+$app['webtranslator.options'] = array(
+    'translator_file_path' => __DIR__ . '/../translations/'
+);
+$app->register(new DC\WebTranslator\Provider\WebTranslatorServiceProvider());
+```
         
 * Mount the controller provider
 
-        $app->mount('/webtranslator', new DC\WebTranslator\Controller\WebTranslatorControllerProvider());
+```php
+$app->mount('/webtranslator', new DC\WebTranslator\Controller\WebTranslatorControllerProvider());
+```
 
 ## FAQ
 
